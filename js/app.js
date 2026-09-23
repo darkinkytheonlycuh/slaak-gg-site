@@ -68,6 +68,7 @@
     if (path === '/' || path === '') return home();
     if (path.startsWith('/mods')) return browse();
     if (path.startsWith('/mod/')) return projectView(decodeURIComponent(path.split('/')[2] || ''));
+    if (path === '/download') return downloadView();
     if (path === '/about') return about();
     return notFound();
   }
@@ -145,6 +146,7 @@
           <button class="btn btn-primary" data-slaak-go="/mods">Browse mods</button>
           <button class="btn btn-ghost" data-slaak-go="/mods?type=resourcepack">Resource packs</button>
           <button class="btn btn-ghost" data-slaak-go="/mods?type=shader">Shaders</button>
+          <button class="btn btn-ghost" data-slaak-go="/download">Get the launcher</button>
         </div>
       </div>
     </section>
@@ -510,7 +512,52 @@
     refresh();
   }
 
-  /* ───────────── ABOUT / 404 ───────────── */
+  /* ───────────── DOWNLOAD / ABOUT / 404 ───────────── */
+
+  function downloadView() {
+    app.innerHTML = `
+    <section class="dl-hero">
+      <div class="eyebrow"><span class="pulse"></span> Slaak.gg launcher · v1.0.0 · Windows 10/11</div>
+      <h1>Download the launcher</h1>
+      <p class="sub">Auto-updating instances, mod management, friends, and more — all wrapped in our OLED-dark shell. Downloads start instantly.</p>
+      <div class="dl-cards">
+        <div class="dl-card" id="dlSetup">
+          <div class="dl-card-top">
+            <span class="dl-badge">Recommended</span>
+            <h3>Setup</h3>
+          </div>
+          <p class="dl-card-desc">Full installer. Adds a start-menu shortcut and auto-updates in the background.</p>
+          <div class="dl-card-meta">
+            <span>slaakgg-setup-1.0.0.exe</span>
+            <span>78.3 MB</span>
+          </div>
+          <a class="btn btn-primary dl-card-btn" href="/downloads/slaakgg-setup-1.0.0.exe" download>Download setup</a>
+        </div>
+        <div class="dl-card" id="dlPortable">
+          <div class="dl-card-top">
+            <span class="dl-badge">No install</span>
+            <h3>Portable</h3>
+          </div>
+          <p class="dl-card-desc">Single-file launcher. Runs directly from anywhere — USB or a folder. No registry writes.</p>
+          <div class="dl-card-meta">
+            <span>slaakgg-portable-1.0.0.exe</span>
+            <span>77.9 MB</span>
+          </div>
+          <a class="btn btn-ghost dl-card-btn" href="/downloads/slaakgg-portable-1.0.0.exe" download>Download portable</a>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="dl-notes">
+        <h3>Notes</h3>
+        <ul>
+          <li>Your download lands in your <b>Downloads</b> folder when the file picker is skipped.</li>
+          <li>Windows SmartScreen may warn about an unsigned build — choose <b>More info → Run anyway</b>.</li>
+          <li>No install required for the portable build: unzip nothing, just double-click.</li>
+        </ul>
+      </div>
+    </section>`;
+  }
 
   function about() {
     app.innerHTML = `
@@ -518,7 +565,7 @@
       <h1>About Slaak<span style="color:var(--txt3)">.gg</span></h1>
       <p>Slaak.gg is a fast, dark and modern way to browse the Minecraft modding scene. We pull live data from the <a href="https://modrinth.com" target="_blank" rel="noopener">Modrinth</a> public API so everything here is always up to date.</p>
       <p>Every download lands in your browser's Downloads folder. No wrappers, no installers, no nonsense.</p>
-      <p>Pair the site with the <b>Slaak.gg launcher</b> for instances, mod management, friends and more.</p>
+      <p>Pair the site with the <a href="/download" data-slaak-nav="/download">Slaak.gg launcher</a> for instances, mod management, friends and more.</p>
     </div>`;
   }
 
