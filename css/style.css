@@ -251,6 +251,35 @@ select, .sort-sel {
 .dl-bar .btn { padding: 14px 24px; }
 .dl-sub { font-size: 12.5px; color: var(--txt3); }
 
+.dl-widget {
+  margin: 26px 6% 0; padding: 24px 28px;
+  background: var(--bg3); border: 1px solid var(--line2); border-radius: var(--radius);
+}
+.dw-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+.dw-head h3 { font-size: 19px; font-weight: 760; letter-spacing: -.015em; }
+.dw-sub { font-size: 12.5px; color: var(--txt3); }
+.dw-total { font-size: 13px; color: var(--accent); }
+.dw-body { display: flex; flex-direction: column; gap: 16px; }
+.dw-row { display: flex; flex-direction: column; gap: 9px; }
+.dw-label { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--txt3); }
+.dw-loaders { display: flex; flex-wrap: wrap; gap: 8px; }
+.dw-pill {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px;
+  background: #1c1c21; border: 1px solid var(--line); color: var(--txt2);
+  font: inherit; font-weight: 650; font-size: 13.5px; cursor: pointer; transition: all .15s;
+}
+.dw-pill:hover { color: var(--txt); border-color: var(--line2); }
+.dw-pill.active { background: #fff; color: #000; border-color: #fff; }
+.dw-pill.active .dw-count { color: rgba(0,0,0,.55); }
+.dw-count { font-size: 11px; color: var(--txt3); background: rgba(255,255,255,.06); border-radius: 999px; padding: 1px 7px; }
+.dw-pill.active .dw-count { background: rgba(0,0,0,.1); }
+.dw-select { max-width: 340px; }
+.dw-none { font-size: 13px; color: var(--txt3); }
+.dw-foot { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+.dw-foot .btn { padding: 13px 26px; }
+.dw-btn:disabled { opacity: .4; cursor: default; }
+.dw-file { font-size: 12.5px; color: var(--txt3); word-break: break-all; }
+
 .project-tabs { display: flex; gap: 4px; padding: 18px 6% 0; border-bottom: 1px solid var(--line); margin-top: 10px; flex-wrap: wrap; }
 .project-tabs button {
   background: none; border: 0; border-bottom: 2px solid transparent; color: var(--txt3);

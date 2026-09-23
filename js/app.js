@@ -96,6 +96,19 @@
     toast(`${label} — downloaded to your Downloads folder`, 'good');
   }
 
+  const stableRe = /^\d+(\.\d+){1,2}$/;
+  function numDesc(a, b) {
+    const pa = a.split('.').map(Number), pb = b.split('.').map(Number);
+    for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+      const d = (pb[i] || 0) - (pa[i] || 0);
+      if (d) return d;
+    }
+    return 0;
+  }
+  const TYPE_RANK = { release: 0, beta: 1, alpha: 2 };
+  const typeRank = (t) => (TYPE_RANK[t] == null ? 3 : TYPE_RANK[t]);
+  const primaryFile = (v) => ((v.files || []).find(f => f.primary) || (v.files || [])[0]) || null;
+
   /* ───────────── HOME ───────────── */
 
   async function home() {
@@ -306,35 +319,55 @@
         </div>
         <div class="dl-bar" id="dlBar">
           <button class="btn btn-primary" id="dlLatestBtn">Download</button>
-          <div class="dl-sub" id="dlSub">Grab the latest release file</div>
+          <div class="dl-sub" id="dlSub">Choose your loader & game version below</div>
         </div>
       </div>
     </div>
+    <section class="dl-widget" id="dlWidget">
+      <div class="dw-head">
+        <div><h3>Download</h3><span class="dw-sub">Pick a loader and game version, then grab a file.</span></div>
+        <span class="dw-total" id="dwTotal"></span>
+      </div>
+      <div class="dw-body">
+        <div class="dw-row">
+          <div class="dw-label">Loader</div>
+          <div class="dw-loaders" id="dwLoaders"></div>
+        </div>
+        <div class="dw-row">
+          <div class="dw-label">Game version</div>
+          <select class="dw-select" id="dwGame"></select>
+        </div>
+        <div class="version-list" id="dwList"></div>
+        <div class="dw-foot">
+          <button class="btn btn-primary dw-btn" id="dwBtn" disabled>Download</button>
+          <span class="dw-file" id="dwFile"></span>
+        </div>
+      </div>
+    </section>
     <div class="project-tabs">
       <button class="active" data-tab="overview">Overview</button>
       <button data-tab="versions">Versions <span style="opacity:.6">(${vers.length})</span></button>
     </div>
     <div class="project-body" id="projectBody"><div class="grid">${skeletons(1).repeat(1)}</div></div>`;
 
-    const modal = document.createElement('div');
-    modal.classList.add('modal-back');
-    modal.id = 'slaakModal';
-    document.body.appendChild(modal);
-
-    document.getElementById('dlLatestBtn').addEventListener('click', () => showPickVersion(p, vers, modal));
+    const dlBtn = document.getElementById('dlLatestBtn');
+    if (dlBtn) dlBtn.addEventListener('click', () => {
+      const w = document.getElementById('dlWidget');
+      if (w) w.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
 
     document.querySelectorAll('.project-tabs button').forEach(b => b.addEventListener('click', () => {
       document.querySelectorAll('.project-tabs button').forEach(x => x.classList.remove('active'));
       b.classList.add('active');
-      renderProjectBody(p, vers, b.dataset.tab, modal);
+      renderProjectBody(p, vers, b.dataset.tab);
     }));
 
-    modal.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('open'); } });
+    buildWidget(p, vers);
 
-    renderProjectBody(p, vers, 'overview', modal);
+    renderProjectBody(p, vers, 'overview');
   }
 
-  async function renderProjectBody(p, vers, tab, modal) {
+  async function renderProjectBody(p, vers, tab) {
     const body = document.getElementById('projectBody');
     if (tab === 'versions') {
       body.innerHTML = `<div><div class="section-head"><h2>All versions</h2></div><div class="version-list">${vers.slice(0, 40).map(v => `
@@ -372,58 +405,90 @@
     }));
   }
 
-  async function showPickVersion(p, vers, modal) {
-    const versionSel = await gameVersionsCache();
-    const gameVers = (p.game_versions || []).filter(v => /^\d+(\.\d+){1,2}$/.test(v));
-    const loaderOpts = Array.from(new Set(vers.flatMap(v => v.loaders || []))).filter(l => l !== 'vanilla');
-    modal.innerHTML = `
-    <div class="modal">
-      <h3>Download ${esc(p.title)}</h3>
-      <div class="m-row">
-        <label>Game version</label>
-        <select id="pickGame">${(gameVers.length ? gameVers : versionSel.slice(0, 14)).map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('')}</select>
-      </div>
-      <div class="m-row">
-        <label>Loader</label>
-        <select id="pickLoader"><option value="">Any</option>${loaderOpts.map(l => `<option value="${esc(l)}">${esc(LOADER_LABEL[l] || l)}</option>`).join('')}</select>
-      </div>
-      <div id="pickResults" style="max-height:220px;overflow:auto"></div>
-      <div class="m-actions">
-        <button class="btn btn-primary" id="pickDL" disabled>Download latest file</button>
-        <button class="btn btn-ghost" id="pickClose">Cancel</button>
-      </div>
-    </div>`;
-    modal.classList.add('open');
-
-    let chosen = null;
-    const refresh = () => {
-      const gv = document.getElementById('pickGame').value;
-      const ld = document.getElementById('pickLoader').value;
-      const matches = vers.filter(v => (v.game_versions || []).includes(gv) && (!ld || (v.loaders || []).includes(ld)));
-      const res = document.getElementById('pickResults');
-      res.innerHTML = matches.length
-        ? `<div class="version-list">${matches.slice(0, 5).map(v => {
-            const f = v.files.find(f => f.primary) || v.files[0];
-            return `<div class="version-row">
-              <div class="vname">${esc(v.name)}</div>
-              <div class="vmeta">${fmt(f?.size || 0)} · ${fmtDate(v.date_published)}</div>
-              <button class="btn btn-ghost dl mchip" data-url="${esc(f?.url)}" data-name="${esc(f?.filename)}">File</button>
-            </div>`;
-          }).join('')}</div>`
-        : '<p style="color:var(--txt3);padding:10px">No matching file for this combo.</p>';
-      chosen = matches[0] && (matches[0].files.find(f => f.primary) || matches[0].files[0]);
-      document.getElementById('pickDL').disabled = !chosen;
-      res.querySelectorAll('.mchip').forEach(b => b.addEventListener('click', () => downloadAndToast(b.dataset.url, b.dataset.name, 'File downloaded')));
-    };
-    document.getElementById('pickGame').addEventListener('change', refresh);
-    document.getElementById('pickLoader').addEventListener('change', refresh);
-    document.getElementById('pickDL').addEventListener('click', () => {
-      if (chosen) {
-        const f = chosen.files.find(x => x.primary) || chosen.files[0];
-        downloadAndToast(f.url, f.filename, 'Download started');
-      }
+  function buildWidget(p, vers) {
+    const loaderSet = new Set();
+    const gameSet = new Set();
+    vers.forEach(v => {
+      (v.loaders || []).forEach(l => { if (l !== 'vanilla' && LOADER_LABEL[l]) loaderSet.add(l); });
+      (v.game_versions || []).forEach(g => { if (stableRe.test(g)) gameSet.add(g); });
     });
-    document.getElementById('pickClose').addEventListener('click', () => modal.classList.remove('open'));
+    const loaders = LOADERS.filter(l => loaderSet.has(l));
+    const gameVs = Array.from(gameSet).sort(numDesc);
+
+    const loadersEl = document.getElementById('dwLoaders');
+    const gameEl = document.getElementById('dwGame');
+    const listEl = document.getElementById('dwList');
+    const btn = document.getElementById('dwBtn');
+    const fileEl = document.getElementById('dwFile');
+    const totalEl = document.getElementById('dwTotal');
+    if (!loadersEl) return;
+
+    if (!vers.length) {
+      listEl.innerHTML = '<div class="empty">No downloadable files yet.</div>';
+      if (btn) btn.disabled = true;
+      return;
+    }
+
+    const loaderCounts = {};
+    loaders.forEach(l => { loaderCounts[l] = vers.filter(v => (v.loaders || []).includes(l)).length; });
+
+    const newest = vers.slice().sort((a, b) => new Date(b.date_published) - new Date(a.date_published));
+    const newestRel = newest.find(v => v.version_type === 'release') || newest[0];
+    let selLoader = '';
+    let selGame = gameVs[0] || '';
+    if (newestRel) {
+      const l = (newestRel.loaders || []).find(x => loaderSet.has(x));
+      if (l) selLoader = l;
+      const g = (newestRel.game_versions || []).filter(x => gameSet.has(x)).sort(numDesc)[0];
+      if (g) selGame = g;
+    }
+
+    loadersEl.innerHTML = loaders.length
+      ? loaders.map(l => `<button class="dw-pill${selLoader === l ? ' active' : ''}" data-l="${esc(l)}">${esc(LOADER_LABEL[l] || l)}<span class="dw-count">${loaderCounts[l]}</span></button>`).join('')
+      : '<span class="dw-none">No loaders listed</span>';
+
+    gameEl.innerHTML = gameVs.length
+      ? gameVs.map(g => `<option value="${esc(g)}" ${g === selGame ? 'selected' : ''}>${esc(g)}</option>`).join('')
+      : '<option value="">—</option>';
+
+    let chosen = primaryFile(newestRel);
+    const refresh = () => {
+      const gv = gameEl.value;
+      const matches = vers.filter(v => (v.game_versions || []).includes(gv) && (!selLoader || (v.loaders || []).includes(selLoader)))
+        .sort((a, b) => (typeRank(a.version_type) - typeRank(b.version_type)) || (new Date(b.date_published) - new Date(a.date_published)));
+      totalEl.textContent = matches.length ? `${matches.length} file${matches.length === 1 ? '' : 's'}` : '';
+      chosen = primaryFile(matches[0]);
+      listEl.innerHTML = matches.length
+        ? matches.slice(0, 5).map(v => {
+            const f = primaryFile(v);
+            return `<div class="version-row">
+              <div>
+                <div class="vname">${esc(v.name)} <span class="tag">${esc(v.version_type)}</span></div>
+                <div class="vmeta">
+                  <span>${esc((v.game_versions || []).slice(0, 4).join(', '))}</span>
+                  ${(v.loaders || []).map(l => `<span class="tag">${esc(LOADER_LABEL[l] || l)}</span>`).join('')}
+                  <span>${fmt(f?.size || 0)}</span>
+                  <span>${fmtDate(v.date_published)}</span>
+                </div>
+              </div>
+              <button class="btn btn-ghost dl vdl" data-url="${esc(f?.url)}" data-name="${esc(f?.filename)}">Download</button>
+            </div>`;
+          }).join('')
+        : '<div class="empty">No file for this combo — try another loader or version.</div>';
+      if (btn) btn.disabled = !chosen;
+      if (fileEl) fileEl.textContent = chosen?.filename || '';
+      wireBodyEvents(listEl);
+    };
+
+    loadersEl.querySelectorAll('.dw-pill').forEach(pill => pill.addEventListener('click', () => {
+      selLoader = selLoader === pill.dataset.l ? '' : pill.dataset.l;
+      loadersEl.querySelectorAll('.dw-pill').forEach(x => x.classList.toggle('active', x.dataset.l === selLoader));
+      refresh();
+    }));
+    gameEl.addEventListener('change', refresh);
+    if (btn) btn.addEventListener('click', () => {
+      if (chosen) downloadAndToast(chosen.url, chosen.filename, 'Download started');
+    });
     refresh();
   }
 
