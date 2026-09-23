@@ -1,0 +1,6 @@
+{
+  "version": "1.0.0",
+  "notes": "The initial release of the Slaak.gg launcher.",
+  "setup": { "name": "slaakgg-setup-1.0.0.exe", "size": 82097444 },
+  "portable": { "name": "slaakgg-portable-1.0.0.exe", "size": 81730685 }
+}
