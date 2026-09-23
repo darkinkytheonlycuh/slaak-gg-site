@@ -61,7 +61,7 @@
     const tags = [hit.project_type ? PROJECT_TYPES[hit.project_type] : null, ...cats.slice(0, 3)].filter(Boolean)
       .map(c => `<span class="tag">${esc(LOADER_LABEL[c] || c.replace(/_/g, ' '))}</span>`).join('');
     return `
-    <a class="card" href="/mod/${encodeURIComponent(hit.slug)}" onclick="return false" data-slaak-nav="/mod/${encodeURIComponent(hit.slug)}">
+    <a class="card" href="/mod/${encodeURIComponent(hit.slug)}" data-slaak-nav="/mod/${encodeURIComponent(hit.slug)}">
       <div class="card-top">
         <img class="card-icon" loading="lazy" src="${esc(hit.icon_url || '/assets/icon.png')}" alt="">
         <div style="min-width:0">
@@ -131,7 +131,7 @@
       </div>
     </section>
     <section class="section">
-      <div class="section-head"><h2>Trending right now</h2><a class="see-all" href="/mods" onclick="return false" data-slaak-nav="/mods">See all →</a></div>
+      <div class="section-head"><h2>Trending right now</h2><a class="see-all" href="/mods" data-slaak-nav="/mods">See all →</a></div>
       <div class="grid" id="homeGrid">${skeletons(8)}</div>
     </section>`;
 
@@ -524,9 +524,9 @@
 
   document.getElementById('app').addEventListener('click', (e) => {
     const nav = e.target.closest('[data-slaak-nav]');
-    if (nav && !e.defaultPrevented) { e.preventDefault(); navigate(nav.dataset.slaakNav); return; }
+    if (nav) { e.preventDefault(); navigate(nav.dataset.slaakNav); return; }
     const go = e.target.closest('[data-slaak-go]');
-    if (go && !e.defaultPrevented) { navigate(go.dataset.slaakGo); }
+    if (go) { e.preventDefault(); navigate(go.dataset.slaakGo); }
   });
 
   const ni = document.getElementById('navSearchInput');
