@@ -1,0 +1,9 @@
+{
+  "name": "slaak-gg-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node -e \"0\"",
+    "vercel-build": "node -e \"0\""
+  }
+}
