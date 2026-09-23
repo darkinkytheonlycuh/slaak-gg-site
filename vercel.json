@@ -1,12 +1,9 @@
 {
-  "version": 2,
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/mods", "destination": "/index.html" },
-    { "source": "/mods/:path*", "destination": "/index.html" },
-    { "source": "/mod/:slug", "destination": "/index.html" },
-    { "source": "/about", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/index" }
   ],
   "headers": [
     {
