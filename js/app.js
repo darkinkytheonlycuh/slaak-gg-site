@@ -31,7 +31,8 @@
   }
 
   function parseQs() {
-    return Object.fromEntries(new URLSearchParams(location.search));
+    const src = location.protocol === 'file:' ? (location.hash.split('?')[1] || '') : location.search;
+    return Object.fromEntries(new URLSearchParams(src));
   }
 
   function setQs(pairs) {
@@ -44,9 +45,26 @@
     history.replaceState({}, '', u.pathname + u.search);
   }
 
+  const TYPE_NAV = {
+    mod: '/mods',
+    plugin: '/mods',
+    resourcepack: '/mods?type=resourcepack',
+    shader: '/mods?type=shader',
+    datapack: '/mods?type=datapack',
+    modpack: '/mods?type=modpack'
+  };
+
+  function markNavActive() {
+    const q = parseQs();
+    const path = currentPath();
+    let cur = path;
+    if (path === '/mods') cur = TYPE_NAV[q.type] || '/mods';
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', (a.getAttribute('href') || '').split('?')[0] === cur.split('?')[0] && (a.getAttribute('href') || '') === cur));
+  }
+
   async function render() {
     const path = currentPath();
-    document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === path.split('?')[0]));
+    markNavActive();
     if (path === '/' || path === '') return home();
     if (path.startsWith('/mods')) return browse();
     if (path.startsWith('/mod/')) return projectView(decodeURIComponent(path.split('/')[2] || ''));
@@ -265,7 +283,7 @@
         cats: s.cats.length ? s.cats.join(',') : '',
         sort: s.sort !== 'relevance' ? s.sort : ''
       });
-      document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', (a.getAttribute('href') || '') === '/mods'));
+      markNavActive();
     }
     const c = document.getElementById('count');
     if (c) c.innerHTML = 'Searching…';
