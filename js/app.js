@@ -517,7 +517,7 @@
   function downloadView() {
     app.innerHTML = `
     <section class="dl-hero">
-      <div class="eyebrow"><span class="pulse"></span> Slaak.gg launcher · v1.0.3 · Windows 10/11</div>
+      <div class="eyebrow"><span class="pulse"></span> Slaak.gg launcher · v1.0.4 · Windows 10/11</div>
       <h1>Download the launcher</h1>
       <p class="sub">Auto-updating instances, mod management, friends, and more — all wrapped in our OLED-dark shell. Downloads start instantly.</p>
       <div class="dl-cards">
@@ -528,10 +528,10 @@
           </div>
           <p class="dl-card-desc">Full installer. Adds a start-menu shortcut and auto-updates in the background.</p>
           <div class="dl-card-meta">
-            <span>slaakgg-setup-1.0.3.exe</span>
+            <span>slaakgg-setup-1.0.4.exe</span>
             <span>78.3 MB</span>
           </div>
-          <a class="btn btn-primary dl-card-btn" href="/downloads/slaakgg-setup-1.0.3.exe" download>Download setup</a>
+          <a class="btn btn-primary dl-card-btn" href="/downloads/slaakgg-setup-1.0.4.exe" download>Download setup</a>
         </div>
         <div class="dl-card" id="dlPortable">
           <div class="dl-card-top">
@@ -540,10 +540,10 @@
           </div>
           <p class="dl-card-desc">Single-file launcher. Runs directly from anywhere — USB or a folder. No registry writes.</p>
           <div class="dl-card-meta">
-            <span>slaakgg-portable-1.0.3.exe</span>
+            <span>slaakgg-portable-1.0.4.exe</span>
             <span>77.9 MB</span>
           </div>
-          <a class="btn btn-ghost dl-card-btn" href="/downloads/slaakgg-portable-1.0.3.exe" download>Download portable</a>
+          <a class="btn btn-ghost dl-card-btn" href="/downloads/slaakgg-portable-1.0.4.exe" download>Download portable</a>
         </div>
       </div>
     </section>

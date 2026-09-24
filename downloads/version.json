@@ -1,6 +1,6 @@
 {
-  "version": "1.0.3",
-  "notes": "Update popup now appears automatically on startup as a blue banner: Update Slaak.gg Minecraft Launcher.",
-  "setup": { "name": "slaakgg-setup-1.0.3.exe", "size": 82098002 },
-  "portable": { "name": "slaakgg-portable-1.0.3.exe", "size": 81731239 }
+  "version": "1.0.4",
+  "notes": "Fixed Xbox sign-in rejection (aligned with the auth flow the client ID expects) and now reports the real Xbox/Minecraft error if anything else goes wrong.",
+  "setup": { "name": "slaakgg-setup-1.0.4.exe", "size": 82098247 },
+  "portable": { "name": "slaakgg-portable-1.0.4.exe", "size": 81731483 }
 }
