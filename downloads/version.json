@@ -1,6 +1,6 @@
 {
-  "version": "1.0.12",
-  "notes": "Fixed the invisible login screen blocking every click — the app is fully clickable again, and Microsoft sign-in works from both the login screen and Settings.",
-  "setup": { "name": "slaakgg-setup-1.0.12.exe", "size": 82103800 },
-  "portable": { "name": "slaakgg-portable-1.0.12.exe", "size": 81737081 }
+  "version": "1.0.13",
+  "notes": "Prism Launcher-style dark GUI (flat Fusion look, blue highlights, green action buttons). Fix: copying an account code now really copies to your clipboard.",
+  "setup": { "name": "slaakgg-setup-1.0.13.exe", "size": 82103249 },
+  "portable": { "name": "slaakgg-portable-1.0.13.exe", "size": 81736529 }
 }
