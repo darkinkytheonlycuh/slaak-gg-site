@@ -1,6 +1,6 @@
 {
-  "version": "1.0.2",
-  "notes": "Microsoft sign-in page is now a clickable link, and the one-time code is click-to-copy.",
-  "setup": { "name": "slaakgg-setup-1.0.2.exe", "size": 82097816 },
-  "portable": { "name": "slaakgg-portable-1.0.2.exe", "size": 81731095 }
+  "version": "1.0.3",
+  "notes": "Update popup now appears automatically on startup as a blue banner: Update Slaak.gg Minecraft Launcher.",
+  "setup": { "name": "slaakgg-setup-1.0.3.exe", "size": 82098002 },
+  "portable": { "name": "slaakgg-portable-1.0.3.exe", "size": 81731239 }
 }
