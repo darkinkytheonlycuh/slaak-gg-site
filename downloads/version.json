@@ -1,6 +1,6 @@
 {
-  "version": "1.0.11",
-  "notes": "The login screen now opens on the Microsoft tab by default.",
-  "setup": { "name": "slaakgg-setup-1.0.11.exe", "size": 82103769 },
-  "portable": { "name": "slaakgg-portable-1.0.11.exe", "size": 81737060 }
+  "version": "1.0.12",
+  "notes": "Fixed the invisible login screen blocking every click — the app is fully clickable again, and Microsoft sign-in works from both the login screen and Settings.",
+  "setup": { "name": "slaakgg-setup-1.0.12.exe", "size": 82103800 },
+  "portable": { "name": "slaakgg-portable-1.0.12.exe", "size": 81737081 }
 }

@@ -1,4 +1,4 @@
-/* Slaak.gg — app */
+/* Slaak.gg ??? app */
 (function () {
   'use strict';
 
@@ -12,7 +12,7 @@
 
   const state = { browse: { query: '', type: 'mod', loaders: [], versions: [], cats: [], sort: 'relevance', offset: 0, limit: 24, total: 0 } };
 
-  /* ───────────── ROUTER ───────────── */
+  /* ??????????????????????????????????????? ROUTER ??????????????????????????????????????? */
 
   function currentPath() {
     if (location.protocol === 'file:') return location.hash.slice(1) || '/';
@@ -73,7 +73,7 @@
     return notFound();
   }
 
-  /* ───────────── SHARED ───────────── */
+  /* ??????????????????????????????????????? SHARED ??????????????????????????????????????? */
 
   function card(hit) {
     const cats = hit.display_categories || hit.categories || [];
@@ -90,8 +90,8 @@
       </div>
       <p class="desc">${esc(hit.description || '')}</p>
       <div class="card-foot">
-        <span class="stat">▼ ${fmt(hit.downloads)}</span>
-        <span class="stat">★ ${fmt(hit.follows)}</span>
+        <span class="stat">??? ${fmt(hit.downloads)}</span>
+        <span class="stat">??? ${fmt(hit.follows)}</span>
         <span class="card-author">${esc(hit.author || '')}</span>
       </div>
     </a>`;
@@ -112,7 +112,7 @@
 
   function downloadAndToast(url, filename, label) {
     triggerDownload(url, filename);
-    toast(`${label} — downloaded to your Downloads folder`, 'good');
+    toast(`${label} ??? downloaded to your Downloads folder`, 'good');
   }
 
   const stableRe = /^\d+(\.\d+){1,2}$/;
@@ -128,7 +128,7 @@
   const typeRank = (t) => (TYPE_RANK[t] == null ? 3 : TYPE_RANK[t]);
   const primaryFile = (v) => ((v.files || []).find(f => f.primary) || (v.files || [])[0]) || null;
 
-  /* ───────────── HOME ───────────── */
+  /* ??????????????????????????????????????? HOME ??????????????????????????????????????? */
 
   async function home() {
     app.innerHTML = `
@@ -138,9 +138,9 @@
         <h1>Every mod.<br><span class="grad">Delivered beautifully.</span></h1>
         <p class="sub">The sleekest way to find and download Minecraft mods, resource packs, shaders and data packs. One click, straight to your downloads.</p>
         <div class="hero-meta">
-          <span class="chip"><b id="statProjects">—</b> projects</span>
-          <span class="chip"><b id="statDownloads">—</b> total downloads</span>
-          <span class="chip"><b id="statVersions">—</b> game versions</span>
+          <span class="chip"><b id="statProjects">???</b> projects</span>
+          <span class="chip"><b id="statDownloads">???</b> total downloads</span>
+          <span class="chip"><b id="statVersions">???</b> game versions</span>
         </div>
         <div class="hero-actions">
           <button class="btn btn-primary" data-slaak-go="/mods">Browse mods</button>
@@ -151,7 +151,7 @@
       </div>
     </section>
     <section class="section">
-      <div class="section-head"><h2>Trending right now</h2><a class="see-all" href="/mods" data-slaak-nav="/mods">See all →</a></div>
+      <div class="section-head"><h2>Trending right now</h2><a class="see-all" href="/mods" data-slaak-nav="/mods">See all ???</a></div>
       <div class="grid" id="homeGrid">${skeletons(8)}</div>
     </section>`;
 
@@ -170,7 +170,7 @@
     return { projects: r.total_hits, downloads: 0, versions: vs.length };
   }
 
-  /* ───────────── BROWSE ───────────── */
+  /* ??????????????????????????????????????? BROWSE ??????????????????????????????????????? */
 
   async function browse() {
     const q = parseQs();
@@ -222,9 +222,9 @@
         <div class="results-toolbar">
           <div class="search-inline">
             <svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-            <input id="fQuery" type="text" placeholder="Search…" value="${esc(state.browse.query)}">
+            <input id="fQuery" type="text" placeholder="Search???" value="${esc(state.browse.query)}">
           </div>
-          <span class="results-count" id="count">—</span>
+          <span class="results-count" id="count">???</span>
         </div>
         <div class="grid" id="resultsGrid" style="min-height:40vh">${skeletons(9)}</div>
         <div class="paging" id="paging"></div>
@@ -236,7 +236,7 @@
   }
 
   function toggleRow(kind, val, label, on) {
-    return `<label class="opt"><span class="checkbox ${on ? 'on' : ''}" data-k="${kind}" data-v="${esc(val)}">${on ? '<span class="tick">✓</span>' : ''}</span><span>${esc(label)}</span></label>`;
+    return `<label class="opt"><span class="checkbox ${on ? 'on' : ''}" data-k="${kind}" data-v="${esc(val)}">${on ? '<span class="tick">???</span>' : ''}</span><span>${esc(label)}</span></label>`;
   }
 
   function wireBrowseControls() {
@@ -288,19 +288,19 @@
       markNavActive();
     }
     const c = document.getElementById('count');
-    if (c) c.innerHTML = 'Searching…';
+    if (c) c.innerHTML = 'Searching???';
     try {
       const r = await search(s);
       s.total = r.total_hits;
-      grid.innerHTML = r.hits.length ? r.hits.map(card).join('') : `<div class="empty">No results — try clearing some filters.</div>`;
+      grid.innerHTML = r.hits.length ? r.hits.map(card).join('') : `<div class="empty">No results ??? try clearing some filters.</div>`;
       if (c) c.innerHTML = `<b>${fmt(s.total)}</b> result${s.total === 1 ? '' : 's'}`;
       const pg = document.getElementById('paging');
       const pages = Math.max(1, Math.ceil(s.total / s.limit));
       const cur = s.offset / s.limit + 1;
       pg.innerHTML = `
-        <button data-pg="prev" ${cur <= 1 ? 'disabled' : ''}>← Prev</button>
+        <button data-pg="prev" ${cur <= 1 ? 'disabled' : ''}>??? Prev</button>
         <span class="pg">Page ${cur} / ${pages}</span>
-        <button data-pg="next" ${cur >= pages ? 'disabled' : ''}>Next →</button>`;
+        <button data-pg="next" ${cur >= pages ? 'disabled' : ''}>Next ???</button>`;
       pg.querySelector('[data-pg="prev"]').addEventListener('click', () => { if (s.offset > 0) { s.offset -= s.limit; runSearch(); } });
       pg.querySelector('[data-pg="next"]').addEventListener('click', () => { if (s.offset + s.limit < s.total) { s.offset += s.limit; runSearch(); } });
       window.scrollTo({ top: grid.offsetTop - 90, behavior: 'smooth' });
@@ -310,7 +310,7 @@
     }
   }
 
-  /* ───────────── PROJECT ───────────── */
+  /* ??????????????????????????????????????? PROJECT ??????????????????????????????????????? */
 
   async function projectView(slug) {
     app.innerHTML = `<div class="section"><div class="grid">${skeletons(1).repeat(1)}</div></div>`;
@@ -332,8 +332,8 @@
         <h1>${esc(p.title)}</h1>
         <div class="by">by <b>${esc(authorName)}</b></div>
         <div class="project-stats">
-          <span class="stat-pill">▼ <b>${fmt(p.downloads)}</b> downloads</span>
-          <span class="stat-pill">★ <b>${fmt(p.followers ?? p.follows ?? 0)}</b> follows</span>
+          <span class="stat-pill">??? <b>${fmt(p.downloads)}</b> downloads</span>
+          <span class="stat-pill">??? <b>${fmt(p.followers ?? p.follows ?? 0)}</b> follows</span>
           ${p.updated ? `<span class="stat-pill">Updated <b>${fmtDate(p.updated)}</b></span>` : ''}
           ${p.game_versions?.length ? `<span class="stat-pill">Latest ${esc(p.game_versions[0])}</span>` : ''}
         </div>
@@ -406,7 +406,7 @@
       wireBodyEvents(body);
       return;
     }
-    body.innerHTML = `<div class="markdown" id="readme">Rendering readme…</div>` + (p.gallery?.length ? `<div class="gallery">${p.gallery.map(g => `<img loading="lazy" src="${esc(g.url)}" alt="">`).join('')}</div>` : '');
+    body.innerHTML = `<div class="markdown" id="readme">Rendering readme???</div>` + (p.gallery?.length ? `<div class="gallery">${p.gallery.map(g => `<img loading="lazy" src="${esc(g.url)}" alt="">`).join('')}</div>` : '');
     try {
       const md = await projectReadme(p.id);
       const html = DOMPurify.sanitize(marked.parse(md || '*No description available.*'));
@@ -469,7 +469,7 @@
 
     gameEl.innerHTML = gameVs.length
       ? gameVs.map(g => `<option value="${esc(g)}" ${g === selGame ? 'selected' : ''}>${esc(g)}</option>`).join('')
-      : '<option value="">—</option>';
+      : '<option value="">???</option>';
 
     let chosen = primaryFile(newestRel);
     const refresh = () => {
@@ -494,7 +494,7 @@
               <button class="btn btn-ghost dl vdl" data-url="${esc(f?.url)}" data-name="${esc(f?.filename)}">Download</button>
             </div>`;
           }).join('')
-        : '<div class="empty">No file for this combo — try another loader or version.</div>';
+        : '<div class="empty">No file for this combo ??? try another loader or version.</div>';
       if (btn) btn.disabled = !chosen;
       if (fileEl) fileEl.textContent = chosen?.filename || '';
       wireBodyEvents(listEl);
@@ -512,14 +512,14 @@
     refresh();
   }
 
-  /* ───────────── DOWNLOAD / ABOUT / 404 ───────────── */
+  /* ??????????????????????????????????????? DOWNLOAD / ABOUT / 404 ??????????????????????????????????????? */
 
   function downloadView() {
     app.innerHTML = `
     <section class="dl-hero">
-      <div class="eyebrow"><span class="pulse"></span> Slaak.gg launcher · v1.0.11 · Windows 10/11</div>
+      <div class="eyebrow"><span class="pulse"></span> Slaak.gg launcher ?? v1.0.12 ?? Windows 10/11</div>
       <h1>Download the launcher</h1>
-      <p class="sub">Auto-updating instances, mod management, friends, and more — all wrapped in our OLED-dark shell. Downloads start instantly.</p>
+      <p class="sub">Auto-updating instances, mod management, friends, and more ??? all wrapped in our OLED-dark shell. Downloads start instantly.</p>
       <div class="dl-cards">
         <div class="dl-card" id="dlSetup">
           <div class="dl-card-top">
@@ -528,22 +528,22 @@
           </div>
           <p class="dl-card-desc">Full installer. Adds a start-menu shortcut and auto-updates in the background.</p>
           <div class="dl-card-meta">
-            <span>slaakgg-setup-1.0.11.exe</span>
+            <span>slaakgg-setup-1.0.12.exe</span>
             <span>78.3 MB</span>
           </div>
-          <a class="btn btn-primary dl-card-btn" href="/downloads/slaakgg-setup-1.0.11.exe" download>Download setup</a>
+          <a class="btn btn-primary dl-card-btn" href="/downloads/slaakgg-setup-1.0.12.exe" download>Download setup</a>
         </div>
         <div class="dl-card" id="dlPortable">
           <div class="dl-card-top">
             <span class="dl-badge">No install</span>
             <h3>Portable</h3>
           </div>
-          <p class="dl-card-desc">Single-file launcher. Runs directly from anywhere — USB or a folder. No registry writes.</p>
+          <p class="dl-card-desc">Single-file launcher. Runs directly from anywhere ??? USB or a folder. No registry writes.</p>
           <div class="dl-card-meta">
-            <span>slaakgg-portable-1.0.11.exe</span>
+            <span>slaakgg-portable-1.0.12.exe</span>
             <span>77.9 MB</span>
           </div>
-          <a class="btn btn-ghost dl-card-btn" href="/downloads/slaakgg-portable-1.0.11.exe" download>Download portable</a>
+          <a class="btn btn-ghost dl-card-btn" href="/downloads/slaakgg-portable-1.0.12.exe" download>Download portable</a>
         </div>
       </div>
     </section>
@@ -552,7 +552,7 @@
         <h3>Notes</h3>
         <ul>
           <li>Your download lands in your <b>Downloads</b> folder when the file picker is skipped.</li>
-          <li>Windows SmartScreen may warn about an unsigned build — choose <b>More info → Run anyway</b>.</li>
+          <li>Windows SmartScreen may warn about an unsigned build ??? choose <b>More info ??? Run anyway</b>.</li>
           <li>No install required for the portable build: unzip nothing, just double-click.</li>
         </ul>
       </div>
@@ -573,7 +573,7 @@
     app.innerHTML = `<div class="about"><h1>404</h1><p>That page doesn't exist.</p><button class="btn btn-primary" data-slaak-go="/">Go home</button></div>`;
   }
 
-  /* ───────────── CACHES / INIT ───────────── */
+  /* ??????????????????????????????????????? CACHES / INIT ??????????????????????????????????????? */
 
   async function gameVersionsCache() {
     if (!VERSIONS_CACHE) VERSIONS_CACHE = await gameVersions();
