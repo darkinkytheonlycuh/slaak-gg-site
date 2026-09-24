@@ -1,6 +1,6 @@
 {
-  "version": "1.0.8",
-  "notes": "Sign-in no longer freezes silently: every Microsoft/Xbox step has a timeout and the launcher shows live status under the sign-in code (e.g. \"Signed in with Microsoft — loading your Minecraft profile…\").",
-  "setup": { "name": "slaakgg-setup-1.0.8.exe", "size": 82099109 },
-  "portable": { "name": "slaakgg-portable-1.0.8.exe", "size": 81732413 }
+  "version": "1.0.9",
+  "notes": "If Microsoft sign-in fails to start, the launcher now shows the reason instead of a silently dead button.",
+  "setup": { "name": "slaakgg-setup-1.0.9.exe", "size": 82099161 },
+  "portable": { "name": "slaakgg-portable-1.0.9.exe", "size": 81732463 }
 }
