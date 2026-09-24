@@ -1,6 +1,6 @@
 {
-  "version": "1.0.7",
-  "notes": "Microsoft sign-in now uses the native Live SDK auth flow — the same approach production launchers use. Cleaner consent screen and reliable Xbox token exchange.",
-  "setup": { "name": "slaakgg-setup-1.0.7.exe", "size": 82098947 },
-  "portable": { "name": "slaakgg-portable-1.0.7.exe", "size": 81732257 }
+  "version": "1.0.8",
+  "notes": "Sign-in no longer freezes silently: every Microsoft/Xbox step has a timeout and the launcher shows live status under the sign-in code (e.g. \"Signed in with Microsoft — loading your Minecraft profile…\").",
+  "setup": { "name": "slaakgg-setup-1.0.8.exe", "size": 82099109 },
+  "portable": { "name": "slaakgg-portable-1.0.8.exe", "size": 81732413 }
 }
