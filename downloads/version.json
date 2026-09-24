@@ -1,6 +1,6 @@
 {
-  "version": "1.0.4",
-  "notes": "Fixed Xbox sign-in rejection (aligned with the auth flow the client ID expects) and now reports the real Xbox/Minecraft error if anything else goes wrong.",
-  "setup": { "name": "slaakgg-setup-1.0.4.exe", "size": 82098247 },
-  "portable": { "name": "slaakgg-portable-1.0.4.exe", "size": 81731483 }
+  "version": "1.0.5",
+  "notes": "Slaak account login now happens in a popup (enter your email, then your code). Removed the inline email box and fixed the white text boxes on the login screen.",
+  "setup": { "name": "slaakgg-setup-1.0.5.exe", "size": 82098693 },
+  "portable": { "name": "slaakgg-portable-1.0.5.exe", "size": 81731994 }
 }
