@@ -1,6 +1,6 @@
 {
-  "version": "1.0.10",
-  "notes": "Fixed the in-app Microsoft sign-in (Settings → Account → Microsoft): it now opens the code dialog and actually links the account.",
-  "setup": { "name": "slaakgg-setup-1.0.10.exe", "size": 82103779 },
-  "portable": { "name": "slaakgg-portable-1.0.10.exe", "size": 81737082 }
+  "version": "1.0.11",
+  "notes": "The login screen now opens on the Microsoft tab by default.",
+  "setup": { "name": "slaakgg-setup-1.0.11.exe", "size": 82103769 },
+  "portable": { "name": "slaakgg-portable-1.0.11.exe", "size": 81737060 }
 }
