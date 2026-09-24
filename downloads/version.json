@@ -1,6 +1,6 @@
 {
-  "version": "1.0.9",
-  "notes": "If Microsoft sign-in fails to start, the launcher now shows the reason instead of a silently dead button.",
-  "setup": { "name": "slaakgg-setup-1.0.9.exe", "size": 82099161 },
-  "portable": { "name": "slaakgg-portable-1.0.9.exe", "size": 81732463 }
+  "version": "1.0.10",
+  "notes": "Fixed the in-app Microsoft sign-in (Settings → Account → Microsoft): it now opens the code dialog and actually links the account.",
+  "setup": { "name": "slaakgg-setup-1.0.10.exe", "size": 82103779 },
+  "portable": { "name": "slaakgg-portable-1.0.10.exe", "size": 81737082 }
 }
