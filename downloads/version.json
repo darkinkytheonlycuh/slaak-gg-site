@@ -1,6 +1,6 @@
 {
-  "version": "1.0.13",
-  "notes": "Prism Launcher-style dark GUI (flat Fusion look, blue highlights, green action buttons). Fix: copying an account code now really copies to your clipboard.",
-  "setup": { "name": "slaakgg-setup-1.0.13.exe", "size": 82103249 },
-  "portable": { "name": "slaakgg-portable-1.0.13.exe", "size": 81736529 }
+  "version": "1.0.14",
+  "notes": "Removed the RAM/memory controls — the launcher decides memory on its own (4 GB default).",
+  "setup": { "name": "slaakgg-setup-1.0.14.exe", "size": 82102931 },
+  "portable": { "name": "slaakgg-portable-1.0.14.exe", "size": 81736222 }
 }
