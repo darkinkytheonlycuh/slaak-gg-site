@@ -1,6 +1,6 @@
 {
-  "version": "1.0.1",
-  "notes": "Microsoft sign-in now works out of the box (built-in device-code client ID). Also adds Settings → Microsoft to override the client ID, and refresh-token fixes.",
-  "setup": { "name": "slaakgg-setup-1.0.1.exe", "size": 82097695 },
-  "portable": { "name": "slaakgg-portable-1.0.1.exe", "size": 81730930 }
+  "version": "1.0.2",
+  "notes": "Microsoft sign-in page is now a clickable link, and the one-time code is click-to-copy.",
+  "setup": { "name": "slaakgg-setup-1.0.2.exe", "size": 82097816 },
+  "portable": { "name": "slaakgg-portable-1.0.2.exe", "size": 81731095 }
 }
